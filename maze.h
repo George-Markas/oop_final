@@ -14,7 +14,7 @@ class Maze {
         MazeLayout map;
 
     public:
-        Maze()= default;
+        Maze() = default;
 
         void importMazeLayout(const std::string& filePath);
         MazeLayout& getMapState();

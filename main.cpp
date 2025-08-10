@@ -1,15 +1,20 @@
 #include "maze.h"
+#include "entity.h"
+
+#ifdef DEBUG
+#include <unistd.h>
+#endif
 
 int main() {
     Maze newMaze;
     newMaze.importMazeLayout(
         "/mnt/c/Users/George/CLionProjects/oop_final/maze_layout.txt");
 
-    const MazeLayout map = newMaze.getMapState();
-
     setlocale(LC_ALL, "");
     initscr();
     noecho();
+    start_color();
+    use_default_colors();
     curs_set(0);
 
     if(!has_colors()) {
@@ -18,7 +23,18 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    newMaze.draw();
+#ifdef DEBUG
+    // Entity random spawning test
+    Entity silver('S');
+    // ReSharper disable once CppDFAEndlessLoop
+    while(true) {
+        silver.randomSpawn(newMaze.getMapState());
+        auto [x, y] = silver.getPos();
+        newMaze.draw();
+        newMaze.getMapState()[y][x] = ' ';
+        sleep(2);
+    }
+#endif
 
     getch();
     endwin();

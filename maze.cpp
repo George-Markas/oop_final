@@ -1,7 +1,5 @@
 #include "maze.h"
 
-//Maze::Maze() {}
-
 void Maze::importMazeLayout(const std::string& filePath) {
     // It is assumed the file uses '\n' for line separation
     std::wifstream layoutFile(filePath);
@@ -24,8 +22,8 @@ MazeLayout& Maze::getMapState() {
 }
 
 void Maze::draw() const {
-    for(size_t y = 0; y < map.size(); y++) {
-        for(size_t x = 0; x < map[y].size(); x++) {
+    for(int y = 0; y < map.size(); y++) {
+        for(int x = 0; x < map[y].size(); x++) {
             //  Use Unicode full blocks for walls, print the rest as is
             wchar_t ch = (map[y][x] == L'*') ? L'█' : map[y][x];
             mvaddnwstr(y, x, &ch, 1);
