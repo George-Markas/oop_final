@@ -1,6 +1,7 @@
 #include "entity.h"
 
-Entity::Entity(const wchar_t sprite) {
+Entity::Entity(const std::string& prettyName, const wchar_t sprite) {
+    this->prettyName = prettyName;
     this->sprite = sprite;
 }
 

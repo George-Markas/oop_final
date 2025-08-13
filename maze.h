@@ -15,7 +15,6 @@ class Maze {
 
     public:
         Maze() = default;
-
         void importMazeLayout(const std::string& filePath);
         MazeLayout& getMapState();
         void draw() const;
