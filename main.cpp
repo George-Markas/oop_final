@@ -29,20 +29,27 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
+    init_pair(1, COLOR_RED, -1);
+
     Entity silver("Silver", 'S');
-    int termini = 0;
     // ReSharper disable once CppDFAEndlessLoop
-    while(true) {
+    for(int i = 0; i < 1000; i++) {
         silver.randomSpawn(newMaze.getMapState());
         auto [x, y] = silver.getPos();
-        mvprintw(0 ,static_cast<int>(newMaze.getMapState()[0].size()) + 1, "💀 %d/1000", termini);
+
+        // Round counter
+        attron(COLOR_PAIR(1));
+        mvprintw(0, static_cast<int>(newMaze.getMapState()[0].size()) + 1, "DOOM ");
+        attroff(COLOR_PAIR(1));
+        mvprintw(0 ,static_cast<int>(newMaze.getMapState()[0].size()) + 6, "is imminent... %d", 1000 - i);
+        clrtoeol();
+
         newMaze.draw();
         newMaze.getMapState()[y][x] = ' ';
         std::this_thread::sleep_for(std::chrono::milliseconds(1300));
-        termini++;
     }
 
-    getch();
+    // TODO: add end screens
     endwin();
 
     return EXIT_SUCCESS;
